@@ -1,5 +1,5 @@
 const { Sequelize } = require('sequelize')
-import { DATABASE_URL } from './util/config'
+const { DATABASE_URL } = require('./config')
 
 const sequelize = new Sequelize(DATABASE_URL)
 

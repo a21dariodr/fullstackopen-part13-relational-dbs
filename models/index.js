@@ -1,4 +1,4 @@
-const { Blog } = require('./blog')
+const Blog = require('./blog')
 
 Blog.sync()
 
