@@ -38,6 +38,16 @@ POST http://localhost:3001/api/users
 content-type: application/json
 
 {
+    "username": "pipo1@outlook.es",
+    "name": "Pepe Peres"
+}
+
+###
+
+POST http://localhost:3001/api/users
+content-type: application/json
+
+{
     "username": "pipo",
     "name": "Pepe Peres"
 }

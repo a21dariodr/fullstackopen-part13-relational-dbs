@@ -12,7 +12,7 @@ router.get('/', async (_req, res) => {
     res.json(users)
 })
 
-router.post('/', async (req, res) => {
+router.post('/', async (req, res, next) => {
     try {
         const user = await User.create(req.body)
         console.log(user.toJSON())
