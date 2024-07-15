@@ -18,7 +18,8 @@ router.post('/', async (req, res) => {
         console.log(blog.toJSON())
         res.json(blog)
     } catch(error) {
-        return res.status(400).json({ error })
+        error.type = 'BlogCreationError'
+        next(error)
     }
 })
 
@@ -29,10 +30,14 @@ router.put('/:id', blogFinder, async (req, res) => {
             await req.blog.save()
             res.json(req.blog)
         } else {
-            res.status(400).send({ error: 'value of important field is required' })
+            const error = new Error('Error when updating blog')
+            error.type = 'BlogUpdateError'
+            throw error
         }
     } else {
-        return res.status(404).end()
+        const error = new Error('Resource not found')
+        error.type = 'ResourceNotFound'
+        throw error
     }
 })
 
