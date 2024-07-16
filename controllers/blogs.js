@@ -48,13 +48,16 @@ router.get('/', async (req, res) => {
             model: User,
             attributes: ['name', 'username']
         },
-        where
+        where,
+        order: [
+            ['likes', 'DESC']
+        ]
     })
     console.log('Blogs', JSON.stringify(blogs))
     res.json(blogs)
 })
 
-router.post('/', tokenExtractor, async (req, res) => {
+router.post('/', tokenExtractor, async (req, res, next) => {
     try {
         const user = await User.findByPk(req.decodedToken.id)
         const blog = await Blog.create({ ...req.body, userId: user.id })
@@ -66,7 +69,7 @@ router.post('/', tokenExtractor, async (req, res) => {
     }
 })
 
-router.put('/:id', blogFinder, async (req, res) => {
+router.put('/:id', blogFinder, async (req, res, next) => {
     if (req.blog) {
         if (req.body.likes) {
             req.blog.likes = req.body.likes;
@@ -75,27 +78,27 @@ router.put('/:id', blogFinder, async (req, res) => {
         } else {
             const error = new Error('Error when updating blog')
             error.type = 'BlogUpdateError'
-            throw error
+            next(error)
         }
     } else {
         const error = new Error('Resource not found')
         error.type = 'ResourceNotFound'
-        throw error
+        next(error)
     }
 })
 
-router.delete('/:id', blogFinder, tokenExtractor, async (req, res) => {
+router.delete('/:id', blogFinder, tokenExtractor, async (req, res, next) => {
     try {
         const user = await User.findByPk(req.decodedToken.id)
         if (!user) {
             const error = new Error('User token missing')
             error.type = 'TokenMissing'
-            throw error
+            next(error)
         }
         if (req.blog && user.id !== req.blog.userId) {
             const error = new Error('Only the user who created a blog can delete it')
             error.type = 'WrongUser'
-            throw error
+            next(error)
         }
         if (req.blog) await req.blog.destroy()
         res.status(204).end()
