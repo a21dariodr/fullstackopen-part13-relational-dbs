@@ -64,9 +64,25 @@ router.put('/:id', blogFinder, async (req, res) => {
     }
 })
 
-router.delete('/:id', blogFinder, async (req, res) => {
-    if (req.blog) await req.blog.destroy()
-    res.status(204).end()
+router.delete('/:id', blogFinder, tokenExtractor, async (req, res) => {
+    try {
+        const user = await User.findByPk(req.decodedToken.id)
+        if (!user) {
+            const error = new Error('User token missing')
+            error.type = 'TokenMissing'
+            throw error
+        }
+        if (req.blog && user.id !== req.blog.userId) {
+            const error = new Error('Only the user who created a blog can delete it')
+            error.type = 'WrongUser'
+            throw error
+        }
+        if (req.blog) await req.blog.destroy()
+        res.status(204).end()
+    } catch(error) {
+        error.type = 'BlogDeleteError'
+        next(error)
+    }
 })
 
 module.exports = router

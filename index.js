@@ -10,11 +10,17 @@ const app = express()
 const errorHandler = (error, _request, response, next) => {
   console.error(error.message)
 
-  if (error.type === 'BlogCreationError'
-    || error.type === 'BlogUpdateError'
-    || error.type === 'UserCreationError'
-    || error.type === 'UserUpdateError'
-  ) {
+  const badRequestErrorTypes = [
+    'BlogCreationError',
+    'BlogUpdateError',
+    'BlogDeleteError',
+    'UserCreationError',
+    'UserUpdateError',
+    'TokenMissing',
+    'WrongUser'
+  ]
+
+  if (badRequestErrorTypes.includes(error.type)) {
     return response.status(400).json({ error })
   }
 
