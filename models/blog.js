@@ -22,11 +22,11 @@ Blog.init({
     likes: {
         type: DataTypes.INTEGER,
         defaultValue: 0
-      }
+    }
   }, {
     sequelize,
     underscored: true,
-    timestamps: false,
+    timestamps: true,
     modelName: 'blog'
   }
 )
