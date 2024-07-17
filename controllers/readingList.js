@@ -37,9 +37,9 @@ router.put('/:id', tokenExtractor, async (req, res, next) => {
     }
 
     try {
-        const reading = user.readings.find(r => r.id === Number(req.params.id))
-        reading.readingList.read = req.body.read
-        await user.save()
+        const readingList = user.readings.find(r => r.id === Number(req.params.id)).readingList
+        readingList.read = req.body.read
+        await readingList.save()
         res.json(user)
     } catch(error) {
         next(error)

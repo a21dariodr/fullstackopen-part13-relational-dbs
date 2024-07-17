@@ -55,6 +55,11 @@ router.put('/:username', async (req, res) => {
 router.get('/:id', userFinder, async (req, res) => {
     if (!req.user) res.status(404).end()
 
+    const where = {}
+    if (req.query.read) {
+        where.read = req.query.read
+    }
+
     const user = await User.findOne({
         where: {
             id: req.params.id
@@ -65,7 +70,8 @@ router.get('/:id', userFinder, async (req, res) => {
             as: 'readings',
             attributes: ['id', 'url', 'title', 'author', 'likes', 'year'],
             through: {
-                attributes: ['read', 'id']
+                attributes: ['read', 'id'],
+                where
             }
         }
     })
