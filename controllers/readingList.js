@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const { ReadingList, User, Blog } = require('../models')
+const { ReadingList, User, Blog, Session } = require('../models')
 const { tokenExtractor } = require('../util/middleware')
 
 router.post('/', async (req, res, next) => {
@@ -15,6 +15,16 @@ router.post('/', async (req, res, next) => {
 
 router.put('/:id', tokenExtractor, async (req, res, next) => {
     if (!req.decodedToken) res.status(404).end()
+
+    const session = await Session.findOne({
+        userId: req.decodedToken.id
+    })
+    if (!session) {
+        const error = new Error('User not logged in')
+        error.type = 'UserSessionError'
+        next(error)
+    }
+    
     if (!('read' in req.body)) res.status(400).end()
     
     const user = await User.findByPk(req.decodedToken.id, {

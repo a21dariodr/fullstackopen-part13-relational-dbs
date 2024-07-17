@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const { Blog, User } = require('../models')
+const { Blog, User, Session } = require('../models')
 const { Op } = require('sequelize')
 const { blogFinder, tokenExtractor } = require('../util/middleware')
 
@@ -38,6 +38,15 @@ router.get('/', async (req, res) => {
 })
 
 router.post('/', tokenExtractor, async (req, res, next) => {
+    const session = await Session.findOne({
+        userId: req.decodedToken.id
+    })
+    if (!session) {
+        const error = new Error('User not logged in')
+        error.type = 'UserSessionError'
+        next(error)
+    }
+
     try {
         const user = await User.findByPk(req.decodedToken.id)
         const blog = await Blog.create({ ...req.body, userId: user.id })
@@ -68,6 +77,15 @@ router.put('/:id', blogFinder, async (req, res, next) => {
 })
 
 router.delete('/:id', blogFinder, tokenExtractor, async (req, res, next) => {
+    const session = await Session.findOne({
+        userId: req.decodedToken.id
+    })
+    if (!session) {
+        const error = new Error('User not logged in')
+        error.type = 'UserSessionError'
+        next(error)
+    }
+    
     try {
         const user = await User.findByPk(req.decodedToken.id)
         if (!user) {

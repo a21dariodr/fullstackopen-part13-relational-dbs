@@ -8,6 +8,12 @@ content-type: application/json
     "password": "secret"
 }
 
+### LOGOUT
+
+DELETE http://localhost:3001/api/logout
+content-type: application/json
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InBpcG8xQG91dGxvb2suZXMiLCJpZCI6MSwiaWF0IjoxNzIxMjQ3NTM2fQ.S8BirdQBmqaqOMhWoWzdRGkWjmAxg3_itIRq37dMhzU
+
 ### BLOGS
 
 GET http://localhost:3001/api/blogs
@@ -15,20 +21,20 @@ content-type: application/json
 
 ###
 
-GET http://localhost:3001/api/blogs?search=author
+GET http://localhost:3001/api/blogs?search=other
 content-type: application/json"
 
 ###
 
 POST http://localhost:3001/api/blogs
 content-type: application/json
-authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InBpcG8xQG91dGxvb2suZXMiLCJpZCI6MSwiaWF0IjoxNzIxMjI2MzQ2fQ.fryUFuxR48rb_yZSkeTwfyZJJVfVnQwiTcpYzU9zepA
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InBpcG8xQG91dGxvb2suZXMiLCJpZCI6MSwiaWF0IjoxNzIxMjQ5MDE0fQ.YLsU8a2GtSyXg0bzXfl2RbGtTAiScA1cc5fLjQc3X0s
 
 {
     "author": "Dario",
     "url": "Test",
-    "title": "Other title",
-    "likes": 2,
+    "title": "Other title new",
+    "likes": 4,
     "year": 1994
 }
 
@@ -36,7 +42,7 @@ authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InBpc
 
 DELETE http://localhost:3001/api/blogs/7
 content-type: application/json
-authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InBpcG9Ab3V0bG9vay5lcyIsImlkIjoyLCJpYXQiOjE3MjEwNjY3MDd9.vaiN6rWEVWx6ggwH5aZ9vA-1D_heMS0JSmKwZFPm1M0
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InBpcG8xQG91dGxvb2suZXMiLCJpZCI6MSwiaWF0IjoxNzIxMjQ5MDE0fQ.YLsU8a2GtSyXg0bzXfl2RbGtTAiScA1cc5fLjQc3X0s
 
 ###
 
@@ -61,7 +67,7 @@ content-type: application/json
 
 PUT http://localhost:3001/api/readinglists/1
 content-type: application/json
-authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InBpcG8xQG91dGxvb2suZXMiLCJpZCI6MSwiaWF0IjoxNzIxMjI2MzQ2fQ.fryUFuxR48rb_yZSkeTwfyZJJVfVnQwiTcpYzU9zepA
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InBpcG8xQG91dGxvb2suZXMiLCJpZCI6MSwiaWF0IjoxNzIxMjQ5MDE0fQ.YLsU8a2GtSyXg0bzXfl2RbGtTAiScA1cc5fLjQc3X0s
 
 {
     "read": true

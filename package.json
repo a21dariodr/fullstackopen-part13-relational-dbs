@@ -10,7 +10,8 @@
     "fly-proxy": "flyctl proxy 5432 -a fso-part13-db",
     "test": "echo \"Error: no test specified\" && exit 1",
     "db:console": "flyctl postgres connect -a fso-part13-db",
-    "migration:down": "node util/rollback.js"
+    "migration:down": "node util/rollback.js",
+    "migration:undo:last": "npx sequelize-cli db:migrate:undo"
   },
   "author": "",
   "license": "ISC",
