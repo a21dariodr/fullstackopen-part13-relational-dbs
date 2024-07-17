@@ -52,4 +52,26 @@ router.put('/:username', async (req, res) => {
     }
 })
 
+router.get('/:id', userFinder, async (req, res) => {
+    if (!req.user) res.status(404).end()
+
+    const user = await User.findOne({
+        where: {
+            id: req.params.id
+        },
+        attributes: ['name', 'username'],
+        include: {
+            model: Blog,
+            as: 'readings',
+            attributes: ['id', 'url', 'title', 'author', 'likes', 'year'],
+            through: {
+                attributes: []
+            }
+        }
+    })
+
+    console.log('User', user.toJSON())
+    res.json(user)
+})
+
 module.exports = router

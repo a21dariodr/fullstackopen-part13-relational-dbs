@@ -47,6 +47,16 @@ content-type: application/json
     "likes": 7
 }
 
+### READING LISTS
+
+POST http://localhost:3001/api/readinglists
+content-type: application/json
+
+{
+    "blogId": 2,
+    "userId": 2
+}
+
 ### AUTHORS
 
 GET http://localhost:3001/api/authors
@@ -59,12 +69,17 @@ content-type: application/json
 
 ###
 
+GET http://localhost:3001/api/users/1
+content-type: application/json
+
+###
+
 POST http://localhost:3001/api/users
 content-type: application/json
 
 {
-    "username": "pipo1@outlook.es",
-    "name": "Pepe Peres"
+    "username": "pipo@outlook.es",
+    "name": "Pepe Perez"
 }
 
 ###
