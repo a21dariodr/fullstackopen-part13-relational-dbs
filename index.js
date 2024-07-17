@@ -19,7 +19,8 @@ const errorHandler = (error, _request, response, next) => {
     'UserCreationError',
     'UserUpdateError',
     'TokenMissing',
-    'WrongUser'
+    'WrongUser',
+    'ReadStatusUpdateError'
   ]
 
   if (badRequestErrorTypes.includes(error.type)) {
