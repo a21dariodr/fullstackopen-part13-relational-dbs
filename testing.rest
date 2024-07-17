@@ -27,9 +27,9 @@ authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InBpc
 {
     "author": "Dario",
     "url": "Test",
-    "title": "Other title 2",
+    "title": "Other title",
     "likes": 2,
-    "year": 1990
+    "year": 1994
 }
 
 ###
